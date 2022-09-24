@@ -344,6 +344,8 @@ public class QueryResult {
         List<AggRecords> subfieldRecordsList = new ArrayList<>();
         Terms subfieldAggResultList = searchResponse.getAggregations().get("subfield_agg");
         for (Terms.Bucket buck : subfieldAggResultList.getBuckets()) {
+            // 聚合空子领域，跳过
+            if(buck.getKeyAsString() == "") continue;
             AggRecords subfieldRecords = new AggRecords(buck.getKeyAsString(), buck.getDocCount());
             subfieldRecordsList.add(subfieldRecords);
         }
